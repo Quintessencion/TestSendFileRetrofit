@@ -134,14 +134,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void onSelected(Uri uri) {
         val d = photoPayRecognizer.uploadFile(Utils.readBytesFromUri(uri, getContentResolver()))
-                .doOnSubscribe(disposable -> {
-//                    content.setVisibility(View.GONE);
-                    progressBar.setVisibility(View.VISIBLE);
-                })
-                .doFinally(() -> {
-//                    content.setVisibility(View.VISIBLE);
-                    progressBar.setVisibility(View.GONE);
-                })
+                .doOnSubscribe(disposable -> progressBar.setVisibility(View.VISIBLE))
+                .doFinally(() -> progressBar.setVisibility(View.GONE))
                 .subscribe(responseBody -> {
                     Glide
                             .with(this)
